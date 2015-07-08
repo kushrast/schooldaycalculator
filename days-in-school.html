@@ -1,0 +1,102 @@
+<head>
+  <title>School Days Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+
+<body>
+	<div class="container">
+  		<h1 class="text-center">Days of School Calculator</h1>
+  		{{> dateSelector}}
+	</div>
+</body>
+<template name="dateSelector">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<form class="form-inline">
+				<div class="form-group">
+					<label>First day of School:</label>
+					<input type="date" id="startDate"  class="startDate form-control" value="{{getStart}}">
+				</div>
+				<div class="form-group">
+					<label>Last day of School:</label>
+					<input type="date" id="endDate" class="endDate form-control" value="{{getEnd}}">
+				</div>
+			</form>
+			<br>
+			{{> breakForm}}
+			<br>
+			{{> holidayForm}}
+		</div>
+	</div>
+	{{> breakDisplay}}
+	{{> holidayDisplay}}
+	<div class="col-md-12 text-center"><h2>Days of School left: {{getDiff}}</h2></div>
+</template>
+<template name="breakForm">
+	<form class="form-inline">
+		<div class="form-group">
+			<label>Break Name:</label>
+			<input class="form-control" type="text" id="breakName" placeholder="e.g. Spring Break" name="breakname">
+		</div>
+		<div class="form-group">
+			<label>Start of Break:</label>
+			<input type="date" id="startBreak" class="startBreak form-control">
+		</div>
+		<div class="form-group">
+			<label>End of Break:</label>
+			<input type="date" id="endBreak" class="endBreak form-control">
+		</div>
+			<button class="btn btn-default" type="submit" id="addBreak" name="addBreak">Add Break</button>
+	</form>
+</template>
+<template name="holidayForm">
+	<form class="form-inline">
+		<div class="form-group">
+			<label>Holiday Name:</label>
+			<input class="form-control" type="text" id="holidayName" placeholder="e.g. MLK Day" name="holidayname">
+		</div>
+		<div class="form-group">
+			<label>Holiday Date:</label>
+			<input type="date" id="startHoliday" class="startHoliday form-control">
+		</div>
+		<button class="btn btn-default" type="submit" id="addHoliday" name="addHoliday">Add Holiday</button>
+	</form>
+</template>
+<template name="breakDisplay">
+	<div class="col-md-6">
+		{{#if numBreaks}}
+			<h2 class="text-center">Breaks <button class="btn btn-danger removeBreak"> Remove Breaks</button></h2>
+			<ul class="list-group">
+				{{#each break}}
+				<li class="list-group-item">
+					{{name}}: {{start}} - {{end}}
+					<button type="button" class="btn btn-danger btn-xs removeSingleBreak">
+  					<span class="glyphicon glyphicon-remove"></span>
+					</button>
+				</li>
+				{{/each}}
+			</ul>
+		{{else}}
+			<em class="text-center"> No breaks to show </em>
+		{{/if}}
+	</div>
+</template>
+<template name="holidayDisplay">
+	<div class="col-md-6">
+		{{#if numHolidays}}
+			<h2 class="text-center">Holidays <button class="btn btn-danger removeHoliday"> Remove Holidays</button></h2>
+			<ul class="list-group">
+				{{#each holiday}}
+				<li class="list-group-item">
+					{{name}}: {{date}} 
+					<button type="button" class="btn btn-danger btn-xs removeSingleBreak">
+  					<span class="glyphicon glyphicon-remove"></span>
+					</button>
+				</li>
+				{{/each}}
+			</ul>
+		{{else}}
+			<em class="text-center"> No holidays to show </em>
+		{{/if}}
+	</div>
+</template>
